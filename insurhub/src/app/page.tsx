@@ -69,7 +69,14 @@ const testimonials = [
 ];
 
 // Partners
-const partners = ["Carrier A", "Carrier B", "Carrier C", "Carrier D", "Carrier E", "Carrier F"];
+const partners = [
+  { name: "MTN", color: "#000000" },
+  { name: "Dangote", color: "#E31837" },
+  { name: "GTBank", color: "#1E88E5" },
+  { name: "Zenith Bank", color: "#FFD700" },
+  { name: "First Bank", color: "#1565C0" },
+  { name: "Airtel", color: "#E53935" },
+];
 
 export default function Home() {
   const { openQuoteMenu } = useQuoteMenu();
@@ -160,7 +167,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center text-slate-500 text-sm font-medium mb-10"
           >
-            Trusted by leading insurance carriers
+            Trusted by the leading companies
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -169,12 +176,13 @@ export default function Home() {
             className="flex flex-wrap justify-center items-center gap-8 md:gap-16"
           >
             {partners.map((partner, i) => (
-              <div
+              <span
                 key={i}
-                className="text-slate-300 font-semibold text-lg hover:text-slate-400 transition-colors cursor-default"
+                className="text-2xl md:text-3xl font-bold"
+                style={{ color: partner.color }}
               >
-                {partner}
-              </div>
+                {partner.name}
+              </span>
             ))}
           </motion.div>
         </div>
