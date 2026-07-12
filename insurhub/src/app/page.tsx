@@ -18,11 +18,11 @@ import { useState, useEffect, useRef } from "react";
 // Video configuration
 const videos = [
   { src: "/auto.mp4", name: "auto" },
-  { src: "/marine.mp4", name: "marine" },
-  { src: "/life.mp4", name: "life" },
-  { src: "/health.mp4", name: "health" },
   { src: "/cargo.mp4", name: "cargo" },
+  { src: "/health.mp4", name: "health" },
   { src: "/Home.mp4", name: "home" },
+  { src: "/life.mp4", name: "life" },
+  { src: "/marine.mp4", name: "marine" },
 ];
 
 const VIDEO_DURATION = 6000; // 6 seconds per video
@@ -94,6 +94,7 @@ export default function Home() {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
     }
   }, [currentVideoIndex]);
 
@@ -110,6 +111,7 @@ export default function Home() {
               src={video.src}
               autoPlay
               muted
+              loop
               playsInline
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                 index === currentVideoIndex ? "opacity-100" : "opacity-0"
