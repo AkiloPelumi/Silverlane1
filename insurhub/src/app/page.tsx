@@ -17,12 +17,10 @@ import { useState, useEffect, useRef } from "react";
 
 // Video configuration
 const videos = [
-  { src: "/auto.mp4", name: "auto" },
-  { src: "/cargo.mp4", name: "cargo" },
-  { src: "/health.mp4", name: "health" },
-  { src: "/Home.mp4", name: "home" },
-  { src: "/life.mp4", name: "life" },
-  { src: "/marine.mp4", name: "marine" },
+  { src: "https://videos.pexels.com/video-files/3974558/3974558-hd_1920_1080_30fps.mp4", name: "auto" },
+  { src: "https://videos.pexels.com/video-files/26893828/12028859_1920_1080_24fps.mp4", name: "marine" },
+  { src: "https://videos.pexels.com/video-files/30141932/12925594_1920_1080_24fps.mp4", name: "health" },
+  { src: "https://videos.pexels.com/video-files/8524216/8524216-hd_1920_1080_25fps.mp4", name: "family" },
 ];
 
 const VIDEO_DURATION = 6000; // 6 seconds per video
@@ -81,6 +79,7 @@ const partners = [
 export default function Home() {
   const { openQuoteMenu } = useQuoteMenu();
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -103,16 +102,16 @@ export default function Home() {
       {/* 1. HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Videos with Overlay */}
-        <div className="absolute inset-0 z-0">
-          {videos.map((video, index) => (
+        <div className={`absolute inset-0 z-0 ${videoError ? 'bg-slate-900' : ''}`}>
+          {!videoError && videos.map((video, index) => (
             <video
               key={video.name}
               ref={index === currentVideoIndex ? videoRef : null}
               src={video.src}
               autoPlay
               muted
-              loop
               playsInline
+              onError={() => setVideoError(true)}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                 index === currentVideoIndex ? "opacity-100" : "opacity-0"
               }`}
